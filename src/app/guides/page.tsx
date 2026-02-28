@@ -109,14 +109,14 @@ export default function GuidesPage() {
       </section>
 
       {/* Category filters */}
-      <section className="border-b border-white/5">
+      <section className="border-b border-white/15">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex gap-2 overflow-x-auto py-4 no-scrollbar">
             {categories.map((cat) => (
               <Badge
                 key={cat}
                 variant="outline"
-                className="shrink-0 cursor-pointer border-white/10 transition-colors hover:border-indigo-500/30 hover:text-indigo-400"
+                className="shrink-0 cursor-pointer border-white/20 transition-colors hover:border-indigo-500/30 hover:text-indigo-400"
               >
                 {cat}
               </Badge>
@@ -138,7 +138,7 @@ export default function GuidesPage() {
                 transition={{ duration: 0.5, delay: i * 0.05 }}
               >
                 <Link href={`https://haveaidoit.com${guide.slug}`} target="_blank">
-                  <Card className="group h-full border-white/5 bg-white/[0.02] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.04] hover:-translate-y-1">
+                  <Card className="group h-full border-white/15 bg-white/[0.06] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.08] hover:-translate-y-1">
                     <CardContent className="flex h-full flex-col p-6">
                       <div className="flex items-center justify-between mb-4">
                         <Badge

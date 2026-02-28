@@ -125,7 +125,7 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/10 hover:bg-white/5">
+              <Button asChild size="lg" variant="outline" className="border-white/20 hover:bg-white/5">
                 <Link href="/services">Get AI Setup for Your Business</Link>
               </Button>
             </div>
@@ -134,7 +134,7 @@ export default function Home() {
       </section>
 
       {/* Social proof */}
-      <section className="border-y border-white/5 bg-white/[0.02]">
+      <section className="border-y border-white/15 bg-white/[0.06]">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <motion.div
             initial={{ opacity: 0 }}
@@ -173,7 +173,7 @@ export default function Home() {
           >
             {whatWeDo.map((item, i) => (
               <motion.div key={item.title} {...fadeUp} transition={{ duration: 0.5, delay: i * 0.1 }}>
-                <Card className="group relative overflow-hidden border-white/5 bg-white/[0.02] backdrop-blur-sm transition-colors hover:border-white/10 hover:bg-white/[0.04]">
+                <Card className="group relative overflow-hidden border-white/15 bg-white/[0.06] backdrop-blur-sm transition-colors hover:border-white/20 hover:bg-white/[0.08]">
                   <CardContent className="p-8">
                     <div className={`mb-4 inline-flex rounded-lg ${item.bg} p-3`}>
                       <item.icon className={`h-6 w-6 ${item.color}`} />
@@ -189,7 +189,7 @@ export default function Home() {
       </section>
 
       {/* Featured Guides */}
-      <section className="border-t border-white/5 bg-white/[0.01] py-24 sm:py-32">
+      <section className="border-t border-white/15 bg-white/[0.08] py-24 sm:py-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading
             badge="Guides"
@@ -203,7 +203,7 @@ export default function Home() {
             {featuredGuides.map((guide, i) => (
               <motion.div key={guide.slug} {...fadeUp} transition={{ duration: 0.5, delay: i * 0.08 }}>
                 <Link href={`https://haveaidoit.com${guide.slug}`} target="_blank">
-                  <Card className="group h-full border-white/5 bg-white/[0.02] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.04] hover:-translate-y-1">
+                  <Card className="group h-full border-white/15 bg-white/[0.06] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.08] hover:-translate-y-1">
                     <CardContent className="flex h-full flex-col p-6">
                       <Badge variant="secondary" className="mb-4 w-fit text-xs">
                         {guide.category}
@@ -225,7 +225,7 @@ export default function Home() {
             ))}
           </motion.div>
           <motion.div {...fadeUp} className="mt-12 text-center">
-            <Button asChild variant="outline" className="border-white/10 hover:bg-white/5">
+            <Button asChild variant="outline" className="border-white/20 hover:bg-white/5">
               <Link href="/guides">
                 View all guides
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -240,7 +240,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div
             {...fadeUp}
-            className="relative overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent p-8 sm:p-12"
+            className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent p-8 sm:p-12"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-600/10 via-transparent to-transparent" />
             <div className="relative max-w-2xl">
@@ -266,7 +266,7 @@ export default function Home() {
       </section>
 
       {/* Newsletter */}
-      <section className="border-t border-white/5 bg-white/[0.01] py-24 sm:py-32">
+      <section className="border-t border-white/15 bg-white/[0.08] py-24 sm:py-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <motion.div {...fadeUp} className="mx-auto max-w-xl text-center">
             <SectionHeading
@@ -281,7 +281,7 @@ export default function Home() {
               <input
                 type="email"
                 placeholder="you@email.com"
-                className="h-11 flex-1 rounded-lg border border-white/10 bg-white/5 px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                className="h-11 flex-1 rounded-lg border border-white/20 bg-white/5 px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
               />
               <Button type="submit" className="bg-indigo-600 text-white hover:bg-indigo-500">
                 Subscribe

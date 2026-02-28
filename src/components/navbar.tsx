@@ -16,7 +16,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[#0a0a1a]/80 backdrop-blur-xl">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/15 bg-[#0a0a1a]/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
           <Zap className="h-5 w-5 text-indigo-500" />
@@ -55,7 +55,7 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden border-t border-white/5 bg-[#0a0a1a]/95 backdrop-blur-xl md:hidden"
+            className="overflow-hidden border-t border-white/15 bg-[#0a0a1a]/95 backdrop-blur-xl md:hidden"
           >
             <div className="flex flex-col gap-4 px-4 py-6">
               {navLinks.map((link) => (

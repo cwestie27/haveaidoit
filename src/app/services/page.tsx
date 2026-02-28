@@ -125,7 +125,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-white/5">
+    <div className="border-b border-white/15">
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between py-5 text-left"
@@ -188,7 +188,7 @@ export default function ServicesPage() {
       </section>
 
       {/* How It Works */}
-      <section className="border-t border-white/5 bg-white/[0.01] py-24 sm:py-32">
+      <section className="border-t border-white/15 bg-white/[0.08] py-24 sm:py-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading
             badge="How It Works"
@@ -247,7 +247,7 @@ export default function ServicesPage() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
                 <Card
-                  className={`relative h-full border-white/5 bg-white/[0.02] backdrop-blur-sm transition-all hover:border-white/10 ${
+                  className={`relative h-full border-white/15 bg-white/[0.06] backdrop-blur-sm transition-all hover:border-white/20 ${
                     plan.popular
                       ? "ring-2 ring-indigo-500/50 border-indigo-500/30"
                       : ""
@@ -280,7 +280,7 @@ export default function ServicesPage() {
                       className={`mt-8 w-full ${
                         plan.popular
                           ? "bg-indigo-600 text-white hover:bg-indigo-500"
-                          : "border-white/10 bg-white/5 hover:bg-white/10"
+                          : "border-white/20 bg-white/5 hover:bg-white/10"
                       }`}
                       variant={plan.popular ? "default" : "outline"}
                     >
@@ -295,7 +295,7 @@ export default function ServicesPage() {
       </section>
 
       {/* FAQ */}
-      <section className="border-t border-white/5 bg-white/[0.01] py-24 sm:py-32">
+      <section className="border-t border-white/15 bg-white/[0.08] py-24 sm:py-32">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <SectionHeading
             badge="FAQ"
@@ -317,7 +317,7 @@ export default function ServicesPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="relative overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent p-8 text-center sm:p-16"
+            className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent p-8 text-center sm:p-16"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-600/10 via-transparent to-transparent" />
             <div className="relative">

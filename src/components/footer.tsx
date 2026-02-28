@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-[#060612]">
+    <footer className="border-t border-white/15 bg-[#060612]">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
@@ -80,7 +80,7 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="you@email.com"
-                className="h-9 flex-1 rounded-md border border-white/10 bg-white/5 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                className="h-9 flex-1 rounded-md border border-white/20 bg-white/5 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
               />
               <Button type="submit" size="sm" className="bg-indigo-600 text-white hover:bg-indigo-500">
                 Join
@@ -89,7 +89,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/5 pt-8 text-center text-xs text-muted-foreground">
+        <div className="mt-12 border-t border-white/15 pt-8 text-center text-xs text-muted-foreground">
           &copy; {new Date().getFullYear()} Have AI Do It. All rights reserved.
         </div>
       </div>
