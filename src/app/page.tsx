@@ -1,65 +1,298 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  BookOpen,
+  Wrench,
+  Mail,
+  ArrowRight,
+  Users,
+  FileText,
+  TrendingUp,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { SectionHeading } from "@/components/section-heading";
+
+const fadeUp = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.5 },
+};
+
+const stagger = {
+  whileInView: { transition: { staggerChildren: 0.1 } },
+  viewport: { once: true },
+};
+
+const featuredGuides = [
+  {
+    title: "AI Tools for Small Business",
+    description: "The best AI tools that actually help small businesses save time and money.",
+    slug: "/ai-tools-for-small-business/",
+    category: "Business",
+  },
+  {
+    title: "AI Writing Tools",
+    description: "Write better emails, blog posts, and marketing copy with these AI tools.",
+    slug: "/ai-writing-tools/",
+    category: "Writing",
+  },
+  {
+    title: "AI Image Generators",
+    description: "Create stunning images for your brand without hiring a designer.",
+    slug: "/ai-image-generators/",
+    category: "Images",
+  },
+  {
+    title: "Make Money with AI",
+    description: "Real ways to earn more using AI - no get-rich-quick nonsense.",
+    slug: "/make-money-with-ai/",
+    category: "Business",
+  },
+  {
+    title: "AI Photo Editing Apps",
+    description: "Edit photos like a pro using AI-powered apps anyone can use.",
+    slug: "/ai-photo-editing-apps/",
+    category: "Images",
+  },
+  {
+    title: "Best Free AI Tools 2026",
+    description: "The top free AI tools worth your time this year, tested and ranked.",
+    slug: "/best-free-ai-tools-2026/",
+    category: "Tools",
+  },
+];
+
+const whatWeDo = [
+  {
+    icon: BookOpen,
+    title: "Free Guides",
+    description: "Learn to use AI tools yourself with no-BS guides",
+    color: "text-blue-400",
+    bg: "bg-blue-500/10",
+  },
+  {
+    icon: Wrench,
+    title: "AI Setup Services",
+    description: "We set up AI tools so they actually work in your business",
+    color: "text-purple-400",
+    bg: "bg-purple-500/10",
+  },
+  {
+    icon: Mail,
+    title: "Newsletter",
+    description: "Weekly AI tips that don't require a CS degree",
+    color: "text-indigo-400",
+    bg: "bg-indigo-500/10",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 via-purple-600/10 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-transparent to-transparent" />
+        <div className="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32 lg:py-40">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="mx-auto max-w-3xl text-center"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            <Badge variant="outline" className="mb-6 border-indigo-500/30 text-indigo-400">
+              Practical AI for people who&apos;d rather skip the hype
+            </Badge>
+            <h1 className="text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
+              Have AI Do It
+              <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                .
+              </span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground sm:text-xl">
+              Practical AI guides and done-for-you setup for small businesses.
+              No jargon. No hype. Just tools that work.
+            </p>
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Button asChild size="lg" className="bg-indigo-600 text-white hover:bg-indigo-500">
+                <Link href="/guides">
+                  Read the Guides
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white/10 hover:bg-white/5">
+                <Link href="/services">Get AI Setup for Your Business</Link>
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Social proof */}
+      <section className="border-y border-white/5 bg-white/[0.02]">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground sm:gap-16"
+          >
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4 text-indigo-400" />
+              <span><strong className="text-foreground">10,000+</strong> readers</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FileText className="h-4 w-4 text-purple-400" />
+              <span><strong className="text-foreground">50+</strong> guides published</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-blue-400" />
+              <span><strong className="text-foreground">500+</strong> businesses helped</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* What We Do */}
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionHeading
+            badge="What We Do"
+            title="AI help that actually helps"
+            description="Whether you want to learn it yourself or have someone do it for you, we've got you covered."
+          />
+          <motion.div
+            {...stagger}
+            className="mt-16 grid gap-6 sm:grid-cols-3"
+          >
+            {whatWeDo.map((item, i) => (
+              <motion.div key={item.title} {...fadeUp} transition={{ duration: 0.5, delay: i * 0.1 }}>
+                <Card className="group relative overflow-hidden border-white/5 bg-white/[0.02] backdrop-blur-sm transition-colors hover:border-white/10 hover:bg-white/[0.04]">
+                  <CardContent className="p-8">
+                    <div className={`mb-4 inline-flex rounded-lg ${item.bg} p-3`}>
+                      <item.icon className={`h-6 w-6 ${item.color}`} />
+                    </div>
+                    <h3 className="text-lg font-semibold">{item.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Guides */}
+      <section className="border-t border-white/5 bg-white/[0.01] py-24 sm:py-32">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionHeading
+            badge="Guides"
+            title="Start learning for free"
+            description="Practical, no-fluff guides to help you actually use AI in your work."
+          />
+          <motion.div
+            {...stagger}
+            className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {featuredGuides.map((guide, i) => (
+              <motion.div key={guide.slug} {...fadeUp} transition={{ duration: 0.5, delay: i * 0.08 }}>
+                <Link href={`https://haveaidoit.com${guide.slug}`} target="_blank">
+                  <Card className="group h-full border-white/5 bg-white/[0.02] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.04] hover:-translate-y-1">
+                    <CardContent className="flex h-full flex-col p-6">
+                      <Badge variant="secondary" className="mb-4 w-fit text-xs">
+                        {guide.category}
+                      </Badge>
+                      <h3 className="text-lg font-semibold group-hover:text-indigo-400 transition-colors">
+                        {guide.title}
+                      </h3>
+                      <p className="mt-2 flex-1 text-sm text-muted-foreground">
+                        {guide.description}
+                      </p>
+                      <span className="mt-4 inline-flex items-center text-sm font-medium text-indigo-400">
+                        Read guide
+                        <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+          <motion.div {...fadeUp} className="mt-12 text-center">
+            <Button asChild variant="outline" className="border-white/10 hover:bg-white/5">
+              <Link href="/guides">
+                View all guides
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Preview */}
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <motion.div
+            {...fadeUp}
+            className="relative overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent p-8 sm:p-12"
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-600/10 via-transparent to-transparent" />
+            <div className="relative max-w-2xl">
+              <Badge variant="outline" className="mb-4 border-indigo-500/30 text-indigo-400">
+                Done-For-You
+              </Badge>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                Don&apos;t want to DIY? We&apos;ll do it for you.
+              </h2>
+              <p className="mt-4 text-lg text-muted-foreground">
+                From chatbots to content workflows, we set up AI tools that actually fit your
+                business. No 6-month contracts, no fluff - just stuff that works.
+              </p>
+              <Button asChild size="lg" className="mt-8 bg-indigo-600 text-white hover:bg-indigo-500">
+                <Link href="/services">
+                  See Services & Pricing
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="border-t border-white/5 bg-white/[0.01] py-24 sm:py-32">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <motion.div {...fadeUp} className="mx-auto max-w-xl text-center">
+            <SectionHeading
+              badge="Newsletter"
+              title="Get smarter about AI every week"
+              description="One email per week with AI tips, tool reviews, and real-world use cases. No spam, no hype."
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="mt-8 flex gap-3 sm:mx-auto sm:max-w-md"
+            >
+              <input
+                type="email"
+                placeholder="you@email.com"
+                className="h-11 flex-1 rounded-lg border border-white/10 bg-white/5 px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+              />
+              <Button type="submit" className="bg-indigo-600 text-white hover:bg-indigo-500">
+                Subscribe
+              </Button>
+            </form>
+            <p className="mt-3 text-xs text-muted-foreground">
+              Join 2,000+ readers. Unsubscribe anytime.
+            </p>
+          </motion.div>
         </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }
