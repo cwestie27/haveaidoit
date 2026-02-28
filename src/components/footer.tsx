@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Zap, Mail, Twitter, Github } from "lucide-react";
+import { Zap, Mail, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
@@ -28,15 +28,7 @@ export function Footer() {
               >
                 <Twitter className="h-5 w-5" />
               </a>
-              <a
-                href="https://github.com/haveaidoit"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-foreground"
-                aria-label="GitHub"
-              >
-                <Github className="h-5 w-5" />
-              </a>
+
               <a
                 href="mailto:carson@haveaidoit.com"
                 className="text-muted-foreground transition-colors hover:text-foreground"

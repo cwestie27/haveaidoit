@@ -7,9 +7,6 @@ import {
   Wrench,
   Mail,
   ArrowRight,
-  Users,
-  FileText,
-  TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -133,31 +130,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Social proof */}
-      <section className="border-y border-white/15 bg-white/[0.06]">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground sm:gap-16"
-          >
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-indigo-400" />
-              <span><strong className="text-foreground">10,000+</strong> readers</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FileText className="h-4 w-4 text-purple-400" />
-              <span><strong className="text-foreground">50+</strong> guides published</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-blue-400" />
-              <span><strong className="text-foreground">500+</strong> businesses helped</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* What We Do */}
       <section className="py-24 sm:py-32">
@@ -288,7 +260,7 @@ export default function Home() {
               </Button>
             </form>
             <p className="mt-3 text-xs text-muted-foreground">
-              Join 2,000+ readers. Unsubscribe anytime.
+              No spam, no hype. Unsubscribe anytime.
             </p>
           </motion.div>
         </div>

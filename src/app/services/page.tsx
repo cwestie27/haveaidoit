@@ -178,7 +178,7 @@ export default function ServicesPage() {
               stuff that saves you time.
             </p>
             <Button asChild size="lg" className="mt-8 bg-indigo-600 text-white hover:bg-indigo-500">
-              <a href="mailto:carson@haveaidoit.com">
+              <a href="mailto:carson@haveaidoit.com?subject=AI%20Setup%20-%20Interested%20in%20a%20Free%20Call">
                 Book a Free Call
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
@@ -284,7 +284,7 @@ export default function ServicesPage() {
                       }`}
                       variant={plan.popular ? "default" : "outline"}
                     >
-                      <a href="mailto:carson@haveaidoit.com">Get Started</a>
+                      <a href="mailto:carson@haveaidoit.com?subject=AI%20Setup%20-%20Interested%20in%20Getting%20Started">Get Started</a>
                     </Button>
                   </CardContent>
                 </Card>
@@ -328,7 +328,7 @@ export default function ServicesPage() {
                 Book a free call. No sales pitch, just a conversation about what could work for you.
               </p>
               <Button asChild size="lg" className="mt-8 bg-indigo-600 text-white hover:bg-indigo-500">
-                <a href="mailto:carson@haveaidoit.com">
+                <a href="mailto:carson@haveaidoit.com?subject=AI%20Setup%20-%20Interested%20in%20a%20Free%20Call">
                   Book a Free Call
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
