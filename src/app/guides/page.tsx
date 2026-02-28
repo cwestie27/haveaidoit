@@ -137,7 +137,7 @@ export default function GuidesPage() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
               >
-                <Link href={`https://haveaidoit.com${guide.slug}`} target="_blank">
+                <Link href={`https://blog.haveaidoit.com${guide.slug}`} target="_blank">
                   <Card className="group h-full border-white/15 bg-white/[0.06] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.08] hover:-translate-y-1">
                     <CardContent className="flex h-full flex-col p-6">
                       <div className="flex items-center justify-between mb-4">
