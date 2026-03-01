@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -33,6 +34,12 @@ export default function RootLayout({
         <Navbar />
         <main className="min-h-screen pt-16">{children}</main>
         <Footer />
+        <Script
+          defer
+          src="https://analytics.haveaidoit.com/script.js"
+          data-website-id="be626784-4973-4885-9277-0a4d67dde76d"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
