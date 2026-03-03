@@ -82,7 +82,13 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-white/15 pt-8 text-center text-xs text-muted-foreground">
-          &copy; {new Date().getFullYear()} Have AI Do It. All rights reserved.
+          <p>&copy; {new Date().getFullYear()} Have AI Do It. All rights reserved.</p>
+          <div className="mt-3 flex items-center justify-center gap-4">
+            <span>Also from our team:</span>
+            <a href="https://www.arborvalue.com" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">ArborValue - Tree Valuation</a>
+            <span>·</span>
+            <a href="https://grantfound.com" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">GrantFound - Nonprofit Donors</a>
+          </div>
         </div>
       </div>
     </footer>
