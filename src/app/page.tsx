@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -7,6 +8,8 @@ import {
   Wrench,
   Mail,
   ArrowRight,
+  CheckCircle2,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,15 +17,16 @@ import { Badge } from "@/components/ui/badge";
 import { SectionHeading } from "@/components/section-heading";
 
 const fadeUp = {
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
+  viewport: { once: true, amount: 0.05 },
   transition: { duration: 0.5 },
 };
 
 const stagger = {
+  initial: {},
   whileInView: { transition: { staggerChildren: 0.1 } },
-  viewport: { once: true },
+  viewport: { once: true, amount: 0.05 },
 };
 
 const featuredGuides = [
@@ -88,7 +92,32 @@ const whatWeDo = [
   },
 ];
 
+async function subscribeToNewsletter(email: string) {
+  const res = await fetch("https://blog.haveaidoit.com/members/api/send-magic-link/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, emailType: "subscribe" }),
+  });
+  if (!res.ok) throw new Error("Subscription failed");
+}
+
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [subState, setSubState] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setSubState("loading");
+    try {
+      await subscribeToNewsletter(email);
+      setSubState("success");
+      setEmail("");
+    } catch {
+      setSubState("error");
+    }
+  };
+
   return (
     <>
       {/* Hero */}
@@ -246,22 +275,47 @@ export default function Home() {
               title="Get smarter about AI every week"
               description="One email per week with AI tips, tool reviews, and real-world use cases. No spam, no hype."
             />
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="mt-8 flex gap-3 sm:mx-auto sm:max-w-md"
-            >
-              <input
-                type="email"
-                placeholder="you@email.com"
-                className="h-11 flex-1 rounded-lg border border-white/20 bg-white/5 px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
-              />
-              <Button type="submit" className="bg-indigo-600 text-white hover:bg-indigo-500">
-                Subscribe
-              </Button>
-            </form>
-            <p className="mt-3 text-xs text-muted-foreground">
-              No spam, no hype. Unsubscribe anytime.
-            </p>
+            {subState === "success" ? (
+              <div className="mt-8 flex items-center justify-center gap-2 text-green-400">
+                <CheckCircle2 className="h-5 w-5" />
+                <span>Check your email to confirm your subscription!</span>
+              </div>
+            ) : (
+              <form
+                onSubmit={handleSubscribe}
+                className="mt-8 flex gap-3 sm:mx-auto sm:max-w-md"
+              >
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@email.com"
+                  className="h-11 flex-1 rounded-lg border border-white/20 bg-white/5 px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                />
+                <Button
+                  type="submit"
+                  disabled={subState === "loading"}
+                  className="bg-indigo-600 text-white hover:bg-indigo-500"
+                >
+                  {subState === "loading" ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    "Subscribe"
+                  )}
+                </Button>
+              </form>
+            )}
+            {subState === "error" && (
+              <p className="mt-3 text-xs text-red-400">
+                Something went wrong. Please try again.
+              </p>
+            )}
+            {subState !== "success" && subState !== "error" && (
+              <p className="mt-3 text-xs text-muted-foreground">
+                No spam, no hype. Unsubscribe anytime.
+              </p>
+            )}
           </motion.div>
         </div>
       </section>

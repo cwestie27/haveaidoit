@@ -79,7 +79,7 @@ export default function AboutPage() {
       </section>
 
       {/* Projects */}
-      <section className="border-t border-white/5 bg-white/[0.01] py-24 sm:py-32">
+      <section className="border-t border-white/15 bg-white/[0.08] py-24 sm:py-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading
             badge="Projects"
@@ -92,12 +92,12 @@ export default function AboutPage() {
                 key={project.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
                 {project.external ? (
                   <a href={project.link} target="_blank" rel="noopener noreferrer">
-                    <Card className="group h-full border-white/5 bg-white/[0.02] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.04] hover:-translate-y-1">
+                    <Card className="group h-full border-white/15 bg-white/[0.06] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.08] hover:-translate-y-1">
                       <CardContent className="flex h-full flex-col p-6">
                         <h3 className="flex items-center gap-2 text-lg font-semibold group-hover:text-indigo-400 transition-colors">
                           {project.name}
@@ -111,7 +111,7 @@ export default function AboutPage() {
                   </a>
                 ) : (
                   <Link href={project.link}>
-                    <Card className="group h-full border-white/5 bg-white/[0.02] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.04] hover:-translate-y-1">
+                    <Card className="group h-full border-white/15 bg-white/[0.06] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.08] hover:-translate-y-1">
                       <CardContent className="flex h-full flex-col p-6">
                         <h3 className="text-lg font-semibold group-hover:text-indigo-400 transition-colors">
                           {project.name}
@@ -137,7 +137,7 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="relative overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent p-8 text-center sm:p-16"
+            className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent p-8 text-center sm:p-16"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-600/10 via-transparent to-transparent" />
             <div className="relative">

@@ -11,9 +11,9 @@ interface SectionHeadingProps {
 export function SectionHeading({ badge, title, description }: SectionHeadingProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.5 }}
       className="mx-auto max-w-2xl text-center"
     >

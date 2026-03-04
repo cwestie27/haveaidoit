@@ -1,10 +1,32 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { Zap, Mail, Twitter } from "lucide-react";
+import { Zap, Mail, Twitter, CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [subState, setSubState] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setSubState("loading");
+    try {
+      const res = await fetch("https://blog.haveaidoit.com/members/api/send-magic-link/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, emailType: "subscribe" }),
+      });
+      if (!res.ok) throw new Error("fail");
+      setSubState("success");
+      setEmail("");
+    } catch {
+      setSubState("error");
+    }
+  };
+
   return (
     <footer className="border-t border-white/15 bg-[#060612]">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -65,19 +87,34 @@ export function Footer() {
             <p className="mb-4 text-sm text-muted-foreground">
               Weekly AI tips that don&apos;t require a CS degree.
             </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex gap-2"
-            >
-              <input
-                type="email"
-                placeholder="you@email.com"
-                className="h-9 flex-1 rounded-md border border-white/20 bg-white/5 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
-              />
-              <Button type="submit" size="sm" className="bg-indigo-600 text-white hover:bg-indigo-500">
-                Join
-              </Button>
-            </form>
+            {subState === "success" ? (
+              <div className="flex items-center gap-1.5 text-xs text-green-400">
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                <span>Check your email to confirm!</span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex gap-2">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@email.com"
+                  className="h-9 flex-1 rounded-md border border-white/20 bg-white/5 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                />
+                <Button
+                  type="submit"
+                  size="sm"
+                  disabled={subState === "loading"}
+                  className="bg-indigo-600 text-white hover:bg-indigo-500"
+                >
+                  {subState === "loading" ? <Loader2 className="h-3 w-3 animate-spin" /> : "Join"}
+                </Button>
+              </form>
+            )}
+            {subState === "error" && (
+              <p className="mt-2 text-xs text-red-400">Something went wrong. Try again.</p>
+            )}
           </div>
         </div>
 

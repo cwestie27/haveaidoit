@@ -128,3 +128,27 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Fallback: if Framer Motion JS hasn't hydrated after 2s, reveal all sections */
+@keyframes revealFallback {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Targets Framer Motion elements that start hidden */
+[style*="opacity: 0"] {
+  animation: revealFallback 0s 2s forwards;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
