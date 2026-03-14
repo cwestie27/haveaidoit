@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { href: "/guides", label: "Guides" },
+  { href: "https://blog.haveaidoit.com", label: "Blog", external: true },
   { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
 ];
@@ -30,6 +31,8 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {link.label}
@@ -62,6 +65,8 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
                   onClick={() => setMobileOpen(false)}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { LatestPosts } from "@/components/latest-posts";
 import {
   BookOpen,
   Wrench,
@@ -265,6 +266,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Latest Blog Posts */}
+      <LatestPosts />
 
       {/* Newsletter */}
       <section className="border-t border-white/15 bg-white/[0.08] py-24 sm:py-32">
