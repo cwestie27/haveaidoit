@@ -3,104 +3,90 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { LatestPosts } from "@/components/latest-posts";
+import { BlogCarousel } from "@/components/blog-carousel";
 import {
   BookOpen,
   Wrench,
-  Mail,
+  Calendar,
   ArrowRight,
   CheckCircle2,
   Loader2,
+  TrendingUp,
+  Shield,
+  Zap,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { SectionHeading } from "@/components/section-heading";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.05 },
-  transition: { duration: 0.5 },
-};
+/* ─── Data ─── */
 
-const stagger = {
-  initial: {},
-  whileInView: { transition: { staggerChildren: 0.1 } },
-  viewport: { once: true, amount: 0.05 },
-};
-
-const featuredGuides = [
-  {
-    title: "AI Tools for Small Business",
-    description: "The best AI tools that actually help small businesses save time and money.",
-    slug: "/ai-tools-for-small-business/",
-    category: "Business",
-  },
-  {
-    title: "AI Writing Tools",
-    description: "Write better emails, blog posts, and marketing copy with these AI tools.",
-    slug: "/ai-writing-tools/",
-    category: "Writing",
-  },
-  {
-    title: "AI Image Generators",
-    description: "Create stunning images for your brand without hiring a designer.",
-    slug: "/ai-image-generators/",
-    category: "Images",
-  },
-  {
-    title: "Make Money with AI",
-    description: "Real ways to earn more using AI - no get-rich-quick nonsense.",
-    slug: "/make-money-with-ai/",
-    category: "Business",
-  },
-  {
-    title: "AI Photo Editing Apps",
-    description: "Edit photos like a pro using AI-powered apps anyone can use.",
-    slug: "/ai-photo-editing-apps/",
-    category: "Images",
-  },
-  {
-    title: "Best Free AI Tools 2026",
-    description: "The top free AI tools worth your time this year, tested and ranked.",
-    slug: "/best-free-ai-tools-2026/",
-    category: "Tools",
-  },
-];
-
-const whatWeDo = [
+const services = [
   {
     icon: BookOpen,
-    title: "Free Guides",
-    description: "Learn to use AI tools yourself with no-BS guides",
-    color: "text-blue-400",
-    bg: "bg-blue-500/10",
+    title: "Free AI Guides",
+    tagline: "Learn it yourself",
+    description:
+      "Battle-tested breakdowns of the AI tools actually worth your time. No affiliate fluff, no hype.",
+    features: ["Tool comparisons", "Step-by-step walkthroughs", "Real use cases"],
+    href: "/guides",
+    accent: "#38BDF8",
   },
   {
     icon: Wrench,
-    title: "AI Setup Services",
-    description: "We set up AI tools so they actually work in your business",
-    color: "text-purple-400",
-    bg: "bg-purple-500/10",
+    title: "Done-For-You Setup",
+    tagline: "We handle everything",
+    description:
+      "I build and configure AI workflows for your business. Chatbots, content systems, automations - you just use them.",
+    features: ["Custom chatbots", "Automation workflows", "Content pipelines"],
+    href: "/services",
+    accent: "#F59E0B",
   },
   {
-    icon: Mail,
-    title: "Newsletter",
-    description: "Weekly AI tips that don't require a CS degree",
-    color: "text-indigo-400",
-    bg: "bg-indigo-500/10",
+    icon: Calendar,
+    title: "Strategy Call",
+    tagline: "Get a clear plan",
+    description:
+      "45 minutes. Walk away knowing exactly which AI tools fit your business and what to do first.",
+    features: ["No sales pitch", "Specific action plan", "Actionable next steps"],
+    href: "#book",
+    accent: "#34D399",
   },
 ];
 
-async function subscribeToNewsletter(email: string) {
-  const res = await fetch("https://blog.haveaidoit.com/members/api/send-magic-link/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, emailType: "subscribe" }),
-  });
-  if (!res.ok) throw new Error("Subscription failed");
-}
+const stats = [
+  { value: "CFA", label: "Chartered Financial Analyst" },
+  { value: "CAIA", label: "Alternative Investments Charter" },
+  { value: "10+", label: "Years in Asset Management" },
+  { value: "50+", label: "AI Tools Tested" },
+];
+
+const whyItWorks = [
+  {
+    icon: TrendingUp,
+    label: "Finance Background",
+    text: "Over a decade across asset management, investment operations, and client-facing roles. I understand how businesses actually run.",
+    color: "#F59E0B",
+  },
+  {
+    icon: Zap,
+    label: "Real AI Practitioner",
+    text: "I build agents, automation systems, and AI tools - not just slides about them. There's a difference.",
+    color: "#38BDF8",
+  },
+  {
+    icon: Shield,
+    label: "No BS Guarantee",
+    text: "Straight talk about what works, what doesn't, and what you should actually spend money on.",
+    color: "#34D399",
+  },
+];
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.1 },
+  transition: { duration: 0.5 },
+};
+
+/* ─── Page ─── */
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -111,7 +97,12 @@ export default function Home() {
     if (!email) return;
     setSubState("loading");
     try {
-      await subscribeToNewsletter(email);
+      const res = await fetch("https://blog.haveaidoit.com/members/api/send-magic-link/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, emailType: "subscribe" }),
+      });
+      if (!res.ok) throw new Error();
       setSubState("success");
       setEmail("");
     } catch {
@@ -120,209 +111,379 @@ export default function Home() {
   };
 
   return (
-    <>
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 via-purple-600/10 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-transparent to-transparent" />
-        <div className="relative mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32 lg:py-40">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <Badge variant="outline" className="mb-6 border-indigo-500/30 text-indigo-400">
-              Practical AI for people who&apos;d rather skip the hype
-            </Badge>
-            <h1 className="text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-              Have AI Do It
-              <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                .
+    <div className="bg-[#04080F] text-white">
+
+      {/* ═══ HERO ═══ */}
+      <section className="relative min-h-[88vh] flex items-center overflow-hidden">
+        {/* Background layers */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0C1828] via-[#04080F] to-[#04080F]" />
+        {/* Grid pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+        {/* Amber glow */}
+        <div className="absolute top-1/3 left-1/4 w-[600px] h-[400px] bg-amber-500/[0.04] rounded-full blur-[140px] pointer-events-none" />
+        {/* Sky glow */}
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-sky-500/[0.04] rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 py-24 sm:py-32 lg:py-40 w-full">
+          <div className="max-w-3xl">
+            {/* Eyebrow badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 mb-8 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-sm font-medium"
+            >
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              CFA &nbsp;·&nbsp; CAIA &nbsp;·&nbsp; AI Builder &nbsp;·&nbsp; Sales Engineer
+            </motion.div>
+
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.04]"
+            >
+              AI that fits your
+              <br />
+              <span className="bg-gradient-to-r from-amber-400 to-amber-300 bg-clip-text text-transparent">
+                business.
               </span>
-            </h1>
-            <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground sm:text-xl">
-              Practical AI guides and done-for-you setup for small businesses.
-              No jargon. No hype. Just tools that work.
-            </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button asChild size="lg" className="bg-indigo-600 text-white hover:bg-indigo-500">
-                <Link href="/guides">
-                  Read the Guides
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/20 hover:bg-white/5">
-                <Link href="/services">Get AI Setup for Your Business</Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            </motion.h1>
 
+            {/* Subtext */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-6 text-lg sm:text-xl text-white/55 max-w-xl leading-relaxed"
+            >
+              Built by someone who actually understands business. Free guides, done-for-you
+              setup, or a 45-minute call - no jargon, no wasted budget.
+            </motion.p>
 
-      {/* What We Do */}
-      <section className="py-24 sm:py-32">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading
-            badge="What We Do"
-            title="AI help that actually helps"
-            description="Whether you want to learn it yourself or have someone do it for you, we've got you covered."
-          />
-          <motion.div
-            {...stagger}
-            className="mt-16 grid gap-6 sm:grid-cols-3"
-          >
-            {whatWeDo.map((item, i) => (
-              <motion.div key={item.title} {...fadeUp} transition={{ duration: 0.5, delay: i * 0.1 }}>
-                <Card className="group relative overflow-hidden border-white/15 bg-white/[0.06] backdrop-blur-sm transition-colors hover:border-white/20 hover:bg-white/[0.08]">
-                  <CardContent className="p-8">
-                    <div className={`mb-4 inline-flex rounded-lg ${item.bg} p-3`}>
-                      <item.icon className={`h-6 w-6 ${item.color}`} />
-                    </div>
-                    <h3 className="text-lg font-semibold">{item.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Featured Guides */}
-      <section className="border-t border-white/15 bg-white/[0.08] py-24 sm:py-32">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading
-            badge="Guides"
-            title="Start learning for free"
-            description="Practical, no-fluff guides to help you actually use AI in your work."
-          />
-          <motion.div
-            {...stagger}
-            className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {featuredGuides.map((guide, i) => (
-              <motion.div key={guide.slug} {...fadeUp} transition={{ duration: 0.5, delay: i * 0.08 }}>
-                <Link href={`https://blog.haveaidoit.com${guide.slug}`} target="_blank">
-                  <Card className="group h-full border-white/15 bg-white/[0.06] backdrop-blur-sm transition-all hover:border-indigo-500/30 hover:bg-white/[0.08] hover:-translate-y-1">
-                    <CardContent className="flex h-full flex-col p-6">
-                      <Badge variant="secondary" className="mb-4 w-fit text-xs">
-                        {guide.category}
-                      </Badge>
-                      <h3 className="text-lg font-semibold group-hover:text-indigo-400 transition-colors">
-                        {guide.title}
-                      </h3>
-                      <p className="mt-2 flex-1 text-sm text-muted-foreground">
-                        {guide.description}
-                      </p>
-                      <span className="mt-4 inline-flex items-center text-sm font-medium text-indigo-400">
-                        Read guide
-                        <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-          <motion.div {...fadeUp} className="mt-12 text-center">
-            <Button asChild variant="outline" className="border-white/20 hover:bg-white/5">
-              <Link href="/guides">
-                View all guides
-                <ArrowRight className="ml-2 h-4 w-4" />
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-10 flex flex-col sm:flex-row items-start gap-4"
+            >
+              <a
+                href="#book"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-amber-500 text-black font-bold text-base hover:bg-amber-400 transition-all hover:scale-[1.02] active:scale-[0.99] shadow-lg shadow-amber-500/20"
+              >
+                Book a Free Strategy Call
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <Link
+                href="/guides"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/20 text-white font-medium text-base hover:bg-white/5 transition-colors"
+              >
+                Read the Free Guides
               </Link>
-            </Button>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Services Preview */}
+      {/* ═══ STATS BAR ═══ */}
+      <section className="border-y border-white/[0.07] bg-[#0C1828]">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                {...fadeUp}
+                transition={{ duration: 0.5, delay: i * 0.07 }}
+                className="text-center sm:text-left"
+              >
+                <div className="text-2xl sm:text-3xl font-bold text-amber-400">{s.value}</div>
+                <div className="mt-1 text-xs sm:text-sm text-white/45 leading-snug">{s.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SERVICES ═══ */}
       <section className="py-24 sm:py-32">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <motion.div
-            {...fadeUp}
-            className="relative overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-indigo-600/10 via-purple-600/5 to-transparent p-8 sm:p-12"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-600/10 via-transparent to-transparent" />
-            <div className="relative max-w-2xl">
-              <Badge variant="outline" className="mb-4 border-indigo-500/30 text-indigo-400">
-                Done-For-You
-              </Badge>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                Don&apos;t want to DIY? We&apos;ll do it for you.
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                From chatbots to content workflows, we set up AI tools that actually fit your
-                business. No 6-month contracts, no fluff - just stuff that works.
-              </p>
-              <Button asChild size="lg" className="mt-8 bg-indigo-600 text-white hover:bg-indigo-500">
-                <Link href="/services">
-                  See Services & Pricing
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
+          <motion.div {...fadeUp}>
+            <p className="text-amber-400 text-xs font-bold tracking-widest uppercase mb-3">
+              How I Can Help
+            </p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+              Pick your starting point.
+            </h2>
+            <p className="mt-4 text-white/50 max-w-lg text-lg">
+              Whether you want to learn it, delegate it, or just get a second opinion - there&apos;s a path.
+            </p>
           </motion.div>
+
+          <div className="mt-12 grid sm:grid-cols-3 gap-5">
+            {services.map((svc, i) => (
+              <motion.div
+                key={svc.title}
+                {...fadeUp}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0C1828] p-8 transition-all hover:border-white/15 cursor-pointer"
+              >
+                {/* Accent glow on hover */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    background: `radial-gradient(circle at top left, ${svc.accent}18, transparent 65%)`,
+                  }}
+                />
+
+                <div className="relative">
+                  <div
+                    className="inline-flex p-3 rounded-xl mb-5"
+                    style={{ background: `${svc.accent}18` }}
+                  >
+                    <svc.icon className="h-5 w-5" style={{ color: svc.accent }} />
+                  </div>
+
+                  <p
+                    className="text-xs font-bold tracking-wider uppercase mb-1.5"
+                    style={{ color: svc.accent }}
+                  >
+                    {svc.tagline}
+                  </p>
+                  <h3 className="text-xl font-bold mb-3">{svc.title}</h3>
+                  <p className="text-white/50 text-sm leading-relaxed mb-5">{svc.description}</p>
+
+                  <ul className="space-y-1.5 mb-6">
+                    {svc.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-sm text-white/65">
+                        <div
+                          className="w-1 h-1 rounded-full flex-shrink-0"
+                          style={{ background: svc.accent }}
+                        />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    href={svc.href}
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold transition-all group-hover:gap-2.5"
+                    style={{ color: svc.accent }}
+                  >
+                    {svc.href === "#book"
+                      ? "Book a call"
+                      : svc.href === "/guides"
+                      ? "Explore guides"
+                      : "See services"}
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Latest Blog Posts */}
-      <LatestPosts />
-
-      {/* Newsletter */}
-      <section className="border-t border-white/15 bg-white/[0.08] py-24 sm:py-32">
+      {/* ═══ BLOG CAROUSEL ═══ */}
+      <section className="py-24 sm:py-32 bg-[#0C1828]">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <motion.div {...fadeUp} className="mx-auto max-w-xl text-center">
-            <SectionHeading
-              badge="Newsletter"
-              title="Get smarter about AI every week"
-              description="One email per week with AI tips, tool reviews, and real-world use cases. No spam, no hype."
-            />
+          <div className="flex items-end justify-between mb-12">
+            <motion.div {...fadeUp}>
+              <p className="text-amber-400 text-xs font-bold tracking-widest uppercase mb-3">
+                From the Blog
+              </p>
+              <h2 className="text-3xl sm:text-4xl font-bold">Latest Insights</h2>
+            </motion.div>
+            <Link
+              href="https://blog.haveaidoit.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-1.5 text-sm text-white/40 hover:text-white/80 transition-colors shrink-0"
+            >
+              View all <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <BlogCarousel />
+          <div className="mt-6 sm:hidden text-center">
+            <Link
+              href="https://blog.haveaidoit.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-amber-400/70 hover:text-amber-400 transition-colors"
+            >
+              View all posts <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ WHY THIS WORKS ═══ */}
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-amber-400 text-xs font-bold tracking-widest uppercase mb-3">
+                Why This Works
+              </p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+                Finance expertise.
+                <br />
+                <span className="text-amber-400">AI execution.</span>
+              </h2>
+              <p className="mt-6 text-white/55 text-lg leading-relaxed">
+                Most AI consultants don&apos;t understand business. Most finance people don&apos;t
+                understand AI. I&apos;ve spent over a decade in asset management and now build the
+                kind of systems that actually fit how businesses operate.
+              </p>
+              <p className="mt-4 text-white/55 text-lg leading-relaxed">
+                CFA. CAIA. Sales Engineer. AI builder. The combination is rare - and it shows in
+                the work.
+              </p>
+              <div className="mt-8">
+                <a
+                  href="#book"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-400 transition-all hover:scale-[1.02] active:scale-[0.99]"
+                >
+                  Let&apos;s talk <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="space-y-4"
+            >
+              {whyItWorks.map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  {...fadeUp}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="flex gap-4 p-5 rounded-xl border border-white/[0.07] bg-[#0C1828] hover:border-white/15 transition-colors"
+                >
+                  <div
+                    className="shrink-0 p-2.5 rounded-lg self-start"
+                    style={{ background: `${item.color}18` }}
+                  >
+                    <item.icon className="h-5 w-5" style={{ color: item.color }} />
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">{item.label}</p>
+                    <p className="text-sm text-white/50 leading-relaxed">{item.text}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ BOOK A CALL ═══ */}
+      <section id="book" className="py-24 sm:py-32 bg-[#0C1828]">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="relative overflow-hidden rounded-3xl border border-amber-500/20 bg-gradient-to-br from-amber-500/10 via-[#0C1828] to-[#0C1828] p-10 sm:p-16 text-center">
+            {/* Background glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#F59E0B12,transparent_70%)] pointer-events-none" />
+
+            <motion.div
+              {...fadeUp}
+              className="relative"
+            >
+              <div className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-sm font-medium">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                Free &nbsp;·&nbsp; No Sales Pitch &nbsp;·&nbsp; 45 Minutes
+              </div>
+
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+                Ready to cut through
+                <br className="hidden sm:block" /> the noise?
+              </h2>
+              <p className="text-white/55 text-lg max-w-xl mx-auto leading-relaxed mb-10">
+                Book a free strategy call. I&apos;ll look at your business, tell you exactly what
+                AI can realistically do for you, and hand you a concrete next step - no pitch,
+                no fluff.
+              </p>
+              <a
+                href="https://calendly.com/haveaidoit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-9 py-4.5 rounded-xl bg-amber-500 text-black font-bold text-lg hover:bg-amber-400 transition-all hover:scale-[1.02] active:scale-[0.99] shadow-xl shadow-amber-500/25"
+              >
+                Book Your Free Call
+                <ArrowRight className="h-5 w-5" />
+              </a>
+              <p className="mt-5 text-sm text-white/30">
+                No commitment. Just clarity.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ NEWSLETTER ═══ */}
+      <section className="py-20 border-t border-white/[0.07]">
+        <div className="mx-auto max-w-xl px-4 sm:px-6 text-center">
+          <motion.div {...fadeUp}>
+            <p className="text-amber-400 text-xs font-bold tracking-widest uppercase mb-3">
+              Newsletter
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2">One weekly email. Zero fluff.</h2>
+            <p className="text-white/45 text-sm mb-8 leading-relaxed">
+              AI tips, tool reviews, and real use cases from someone who builds with it daily.
+            </p>
+
             {subState === "success" ? (
-              <div className="mt-8 flex items-center justify-center gap-2 text-green-400">
+              <div className="flex items-center justify-center gap-2 text-emerald-400">
                 <CheckCircle2 className="h-5 w-5" />
-                <span>Check your email to confirm your subscription!</span>
+                <span>Check your email to confirm!</span>
               </div>
             ) : (
-              <form
-                onSubmit={handleSubscribe}
-                className="mt-8 flex gap-3 sm:mx-auto sm:max-w-md"
-              >
+              <form onSubmit={handleSubscribe} className="flex gap-2 max-w-sm mx-auto">
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@email.com"
-                  className="h-11 flex-1 rounded-lg border border-white/20 bg-white/5 px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                  className="flex-1 h-11 px-4 rounded-lg border border-white/15 bg-white/5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-amber-500/40"
                 />
-                <Button
+                <button
                   type="submit"
                   disabled={subState === "loading"}
-                  className="bg-indigo-600 text-white hover:bg-indigo-500"
+                  className="px-5 h-11 rounded-lg bg-amber-500 text-black font-bold text-sm hover:bg-amber-400 transition-colors disabled:opacity-60 shrink-0"
                 >
                   {subState === "loading" ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
                     "Subscribe"
                   )}
-                </Button>
+                </button>
               </form>
             )}
             {subState === "error" && (
-              <p className="mt-3 text-xs text-red-400">
-                Something went wrong. Please try again.
-              </p>
+              <p className="mt-3 text-xs text-red-400">Something went wrong. Try again.</p>
             )}
             {subState !== "success" && subState !== "error" && (
-              <p className="mt-3 text-xs text-muted-foreground">
-                No spam, no hype. Unsubscribe anytime.
-              </p>
+              <p className="mt-3 text-xs text-white/25">No spam. Unsubscribe anytime.</p>
             )}
           </motion.div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

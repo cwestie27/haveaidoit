@@ -10,7 +10,7 @@ export async function GET() {
     const xml = await res.text();
 
     const items = xml.match(/<item>([\s\S]*?)<\/item>/g) || [];
-    const posts = items.slice(0, 3).map((item) => {
+    const posts = items.slice(0, 6).map((item) => {
       const title =
         item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1] ||
         item.match(/<title>(.*?)<\/title>/)?.[1] ||
