@@ -41,12 +41,12 @@ const services = [
   },
   {
     icon: Calendar,
-    title: "Strategy Call",
-    tagline: "Get a clear plan",
+    title: "Get in Touch",
+    tagline: "Start with an email",
     description:
-      "45 minutes. Walk away knowing exactly which AI tools fit your business and what to do first.",
-    features: ["No sales pitch", "Specific action plan", "Actionable next steps"],
-    href: "#book",
+      "Tell me what you're trying to solve. I'll reply with honest, direct thoughts on what AI can do for you.",
+    features: ["No sales pitch", "Straight to my inbox", "Reply within 24h"],
+    href: "mailto:carson@haveaidoit.com",
     accent: "#34D399",
   },
 ];
@@ -177,10 +177,10 @@ export default function Home() {
               className="mt-10 flex flex-col sm:flex-row items-start gap-4"
             >
               <a
-                href="#book"
+                href="mailto:carson@haveaidoit.com"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-amber-500 text-black font-bold text-base hover:bg-amber-400 transition-all hover:scale-[1.02] active:scale-[0.99] shadow-lg shadow-amber-500/20"
               >
-                Book a Free Strategy Call
+                Get in Touch
                 <ArrowRight className="h-4 w-4" />
               </a>
               <Link
@@ -279,7 +279,7 @@ export default function Home() {
                     style={{ color: svc.accent }}
                   >
                     {svc.href === "#book"
-                      ? "Book a call"
+                      ? "Email me"
                       : svc.href === "/guides"
                       ? "Explore guides"
                       : "See services"}
@@ -354,10 +354,10 @@ export default function Home() {
               </p>
               <div className="mt-8">
                 <a
-                  href="#book"
+                  href="mailto:carson@haveaidoit.com"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-400 transition-all hover:scale-[1.02] active:scale-[0.99]"
                 >
-                  Let&apos;s talk <ArrowRight className="h-4 w-4" />
+                  Email me <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
             </motion.div>
@@ -406,7 +406,7 @@ export default function Home() {
             >
               <div className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-sm font-medium">
                 <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                Free &nbsp;·&nbsp; No Sales Pitch &nbsp;·&nbsp; 45 Minutes
+                Free &nbsp;·&nbsp; No Sales Pitch &nbsp;·&nbsp; Direct to Me
               </div>
 
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
@@ -414,21 +414,19 @@ export default function Home() {
                 <br className="hidden sm:block" /> the noise?
               </h2>
               <p className="text-white/55 text-lg max-w-xl mx-auto leading-relaxed mb-10">
-                Book a free strategy call. I&apos;ll look at your business, tell you exactly what
-                AI can realistically do for you, and hand you a concrete next step - no pitch,
+                Send me an email. Tell me what your business does and where you&apos;re stuck - I&apos;ll
+                come back with honest thoughts on what AI can actually do for you. No pitch,
                 no fluff.
               </p>
               <a
-                href="https://calendly.com/haveaidoit"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:carson@haveaidoit.com"
                 className="inline-flex items-center gap-2.5 px-9 py-4.5 rounded-xl bg-amber-500 text-black font-bold text-lg hover:bg-amber-400 transition-all hover:scale-[1.02] active:scale-[0.99] shadow-xl shadow-amber-500/25"
               >
-                Book Your Free Call
+                Email Me Directly
                 <ArrowRight className="h-5 w-5" />
               </a>
               <p className="mt-5 text-sm text-white/30">
-                No commitment. Just clarity.
+                Goes straight to my inbox. I reply within 24 hours.
               </p>
             </motion.div>
           </div>

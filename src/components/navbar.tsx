@@ -41,10 +41,10 @@ export function Navbar() {
             </Link>
           ))}
           <a
-            href="#book"
+            href="mailto:carson@haveaidoit.com"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-amber-500 text-black text-sm font-bold hover:bg-amber-400 transition-all hover:scale-[1.02] active:scale-[0.99]"
           >
-            Book a Call
+            Get in Touch
           </a>
         </div>
 
@@ -81,11 +81,11 @@ export function Navbar() {
                 </Link>
               ))}
               <a
-                href="#book"
+                href="mailto:carson@haveaidoit.com"
                 onClick={() => setMobileOpen(false)}
                 className="inline-flex justify-center items-center gap-1.5 w-full py-3 rounded-lg bg-amber-500 text-black text-sm font-bold hover:bg-amber-400 transition-colors"
               >
-                Book a Free Call
+                Get in Touch
               </a>
             </div>
           </motion.div>
